@@ -1,0 +1,14 @@
+version: '3'
+services:
+  client:
+    image: node:lts-slim
+    volumes: 
+      - ./:/var/www/client
+    ports: 
+      - ${CLIENT_PORT}:3000
+    working_dir: /var/www/client
+    command: ['yarn', 'start']
+volumes: 
+  client: 
+    driver: local
+    
