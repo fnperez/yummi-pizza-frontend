@@ -1,5 +1,5 @@
 import React from 'react';
-import { history, isLogin } from './_helpers';
+import { history, isLoggedIn } from './_helpers';
 import { PrivateRoute } from './_components';
 import { SignUpPage } from './SingUpPage';
 import { LoginPage } from './LoginPage';
@@ -11,8 +11,8 @@ const Routes = () => {
     return (
         <Router history={history}>
             <Switch>
-                <PublicRoute exact path="/login" restricted={ isLogin() } component={ LoginPage }  />
-                <PublicRoute exact path='/sign-up' restricted={ isLogin() } component={ SignUpPage } />
+                <PublicRoute exact path="/login" restricted={ isLoggedIn() } component={ LoginPage }  />
+                <PublicRoute exact path='/sign-up' restricted={ isLoggedIn() } component={ SignUpPage } />
 
                 <Route exact path='/' component={ CatalogPage } />
 

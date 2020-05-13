@@ -31,7 +31,12 @@ class LoginPage extends React.Component {
                     <Image src='/logo512.png' /> Log-in to your account
                 </Header>
 
-                <Form size='large' loading={ loggingIn } error={ error !== undefined }>
+                <Form 
+                    size='large' 
+                    loading={ loggingIn } 
+                    error={ error !== undefined } 
+                >
+                    <Message error content={ error && error.description }/>
                     <Segment stacked>
                         <Form.Input 
                             fluid 
@@ -42,7 +47,7 @@ class LoginPage extends React.Component {
                             onChange={ this.handleChange }
                             type="email"
                             name='email'
-                            error={ error && error.errors.email }
+                            error={ error && error.errors && error.errors.email }
                         />
                         <Form.Input
                             fluid
@@ -52,7 +57,7 @@ class LoginPage extends React.Component {
                             type='password'
                             name='password'
                             onChange={ this.handleChange }
-                            error={ error && error.errors.password }
+                            error={ error && error.errors && error.errors.password }
                         />
 
                         <Button 

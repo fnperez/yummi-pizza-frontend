@@ -21,6 +21,7 @@ export function auth(state = initState, action) {
       return {
         ...state,
         currentUser: action.user,
+        loggedIn: true
       };
     case authConstants.LOGIN_FAILURE:
       return {

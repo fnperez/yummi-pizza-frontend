@@ -3,28 +3,30 @@ import { connect } from 'react-redux';
 import { authActions } from '../_actions';
 import { Alert } from '../_components/alert.component';
 import Routes from '../routes';
+import { Container } from 'semantic-ui-react';
+import { isLoggedIn } from '../_helpers';
 
 class App extends React.Component {
      componentDidMount = () => {
-        this.props.me();
+         if (isLoggedIn() && !this.loggedIn) {
+            this.props.me();
+         }
     }
 
     render = () => {
         return (
-            <div>
+            <Container fluid>
                 <Alert />
-                 <div>
-                    { this.props.currentUser ? this.props.currentUser.email : undefined }
-                </div>
+
                 <Routes />
-            </div>
+            </Container>
         );
     }
 }
 
 function mapState(state) {
-    const { currentUser } = state.auth
-    return { currentUser };
+    const { currentUser, loggedIn } = state.auth
+    return { currentUser, loggedIn };
 }
 
 const actionCreators = {

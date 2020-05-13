@@ -17,8 +17,8 @@ const getAccessToken = () => {
     return accessToken;
 }
 
-const isLogin = () => {
+const isLoggedIn = () => {
     return getAccessToken() !== undefined;
 }
 
-export {authHeader, getAccessToken, isLogin}
+export {authHeader, getAccessToken, isLoggedIn }

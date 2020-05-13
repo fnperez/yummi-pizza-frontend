@@ -6,28 +6,33 @@ const login = (props) => {
     return dispatch => {
         dispatch(request());
 
-        authService.authenticate(props.username, props.password)
+        authService.authenticate(props.email, props.password)
             .then(token => dispatch(setToken(token)))
-            .then(authActions.me)
+            .then(authService.me)
+            .then(user => dispatch(setUser(user)))
             .then(() => history.push('/'))
             .catch(error => dispatch(failure(error)));
     };
 
     function request() { return { type: authConstants.LOGIN_REQUEST } }
     function setToken(token) { return { type: authConstants.LOGIN_SET_TOKEN, token } }
+    function setUser(user) { return { type: authConstants.LOGIN_SET_USER, user } }
     function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
 }
 
 const me = () => {
     return dispatch => {
+        dispatch(request())
+
         authService.me()
             .then(user => {
                 dispatch(setUser(user))
             })
-            .catch(() => {});
+            .catch(error => dispatch(failure({})));
     };
-
+    function request() { return { type: authConstants.LOGIN_REQUEST } }
     function setUser(user) { return { type: authConstants.LOGIN_SET_USER, user } }
+    function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
 }
 
 const register = (props) => {

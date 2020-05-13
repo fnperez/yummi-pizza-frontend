@@ -35,6 +35,8 @@ class SignUpPage extends React.Component {
                 </Header>
 
                 <Form size='large' loading={ registering } error={ error !== undefined }>
+                    <Message error content={ error && error.description }/>
+
                     <Segment stacked>
                         <Form.Input 
                             fluid
