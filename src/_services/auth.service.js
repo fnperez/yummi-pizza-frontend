@@ -37,6 +37,31 @@ const me = async () => {
         })
 }
 
+const register = async (props) => {
+    const body = new URLSearchParams();
+
+    body.append('email', props.email);
+    body.append('password', props.password);
+    body.append('name', props.name);
+    body.append('password_confirmation', props.password_confirmation);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: body
+    };
+
+    return fetch(`${process.env.REACT_APP_SERVER_API}/auth/register`, requestOptions)
+        .then(checkResponse)
+        .then(response => {
+            const token = AccessToken.fromJson(response.data);
+
+            localStorage.setItem('accessToken', JSON.stringify(token));
+
+            return token;
+        })
+}
+
 const logout = () => {
     localStorage.removeItem('accessToken');
 }
@@ -45,4 +70,5 @@ export const authService = {
     authenticate,
     me,
     logout,
+    register
 };

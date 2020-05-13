@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { userActions } from '../_actions';
+import { authActions } from '../_actions';
 import { Alert } from '../_components/alert.component';
 import Routes from '../routes';
 
@@ -28,8 +28,8 @@ function mapState(state) {
 }
 
 const actionCreators = {
-    me: userActions.me,
-    logout: userActions.logout
+    me: authActions.me,
+    logout: authActions.logout
 };
 
 const connectedApp = connect(mapState, actionCreators)(App);

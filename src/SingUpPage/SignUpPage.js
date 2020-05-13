@@ -1,67 +1,62 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { userActions } from '../_actions';
+import { authActions } from '../_actions';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
 class SignUpPage extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+    };
 
-        this.state = {
-            email: '',
-            password: '',
-            submitted: false
-        };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(e) {
+    handleChange = (e) => {
         const { name, value } = e.target;
         this.setState({ [name]: value });
     }
 
-    handleSubmit(e) {
+    handleSubmit = (e) => {
         e.preventDefault();
 
-        this.setState({ submitted: true });
-        const { email, password } = this.state;
-        if (email && password) {
-            this.props.login(email, password);
-        }
+        this.props.submit(this.state);
     }
 
-    render() {
-        const { loggingIn, error } = this.props;
-        const { email, password, submitted } = this.state;
+    render = () => {
+        const { registering, error } = this.props;
 
         return (
             <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
                 <Header as='h2' color='teal' textAlign='center'>
-                    <Image src='/logo512.png' /> Log-in to your account
+                    <Image src='/logo512.png' /> Create an account
                 </Header>
 
-                <Form size='large' error={ error !== undefined }>
-                    <Message
-                        error
-                        className={ error ? 'error' : null }
-                        header={ error ? error.message : null }
-                        content={ error ? error.description : null }
-                    />
+                <Form size='large' loading={ registering } error={ error !== undefined }>
                     <Segment stacked>
+                        <Form.Input 
+                            fluid
+                            focus
+                            icon='user' 
+                            iconPosition='left' 
+                            placeholder='Name'
+                            onChange={ this.handleChange }
+                            type="text"
+                            name='name'
+                            error={ error && error.errors.name }
+                        />
                         <Form.Input 
                             fluid 
                             focus
-                            icon='user' 
+                            icon='envelope open' 
                             iconPosition='left' 
                             placeholder='E-mail address'
                             onChange={ this.handleChange }
                             type="email"
                             name='email'
-                            error={ submitted && !email }
+                            error={ error && error.errors.email }
                         />
                         <Form.Input
                             fluid
@@ -71,22 +66,31 @@ class SignUpPage extends React.Component {
                             type='password'
                             name='password'
                             onChange={ this.handleChange }
-                            error={ submitted && !password }
+                            error={ error && error.errors.password }
+                        />
+                        <Form.Input
+                            fluid
+                            icon='lock'
+                            iconPosition='left'
+                            placeholder='Repeat password'
+                            type='password'
+                            name='password_confirmation'
+                            onChange={ this.handleChange }
+                            error={ error && error.errors.password_confirmation }
                         />
 
                         <Button 
                             fluid
-                            loading={ loggingIn }
                             color='teal' 
                             size='large' 
                             onClick={ this.handleSubmit }
                         >
-                            Login
+                            Create account
                         </Button>
                     </Segment>
                 </Form>
                 <Message>
-                    New to us? <Link to='/sign-up'>Sign Up</Link>
+                    Already with us? <Link to='/login'>Login</Link>
                 </Message>
                 </Grid.Column>
             </Grid>
@@ -95,13 +99,13 @@ class SignUpPage extends React.Component {
 }
 
 function mapState(state) {
-    const { loggingIn, error } = state.authentication;
-    return { loggingIn, error };
+    const { registering, error } = state.singUp;
+    
+    return { registering, error };
 }
 
 const actionCreators = {
-    login: userActions.login,
-    logout: userActions.logout
+    submit: authActions.register,
 };
 
 const connectedSignUpPage = connect(mapState, actionCreators)(SignUpPage);

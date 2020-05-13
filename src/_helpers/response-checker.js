@@ -1,4 +1,4 @@
-import { userActions } from "../_actions";
+import { authActions } from "../_actions";
 
 export function checkResponse(response) {
     return response.text().then(text => {
@@ -7,17 +7,25 @@ export function checkResponse(response) {
         if (!response.ok) {
             switch (response.status) {
                 case 401:
-                    userActions.logout();
+                    authActions.logout();
                     
                     return Promise.reject(data);
                 case 403:
                 case 400:
                 case 422:
-                    return Promise.reject(data);
+                    return Promise.reject({
+                        type: 'warning',
+                        title: data.message,
+                        description: data.description,
+                        errors: data.errors ?? []
+                    });
                 default:
-                    const error = { message: "Something went wrong, try later." }
-
-                    return Promise.reject(error);
+                    return Promise.reject({
+                        type: 'error',
+                        title: "Sorry!",
+                        description: data.error ?? "Something went wrong, try later.",
+                        errors: []
+                    });
             }    
         }
 
