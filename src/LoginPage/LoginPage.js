@@ -95,7 +95,7 @@ class LoginPage extends React.Component {
 }
 
 function mapState(state) {
-    const { loggingIn, error } = state.authentication;
+    const { loggingIn, error } = state.auth;
     return { loggingIn, error };
 }
 

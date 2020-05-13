@@ -1,3 +1,5 @@
+import { userActions } from "../_actions";
+
 export function checkResponse(response) {
     return response.text().then(text => {
         const data = text && JSON.parse(text);
@@ -5,7 +7,8 @@ export function checkResponse(response) {
         if (!response.ok) {
             switch (response.status) {
                 case 401:
-                    logout();
+                    userActions.logout();
+                    
                     return Promise.reject(data);
                 case 403:
                 case 400:
@@ -20,8 +23,4 @@ export function checkResponse(response) {
 
         return data;
     });
-}
-
-export function logout() {
-    localStorage.removeItem('user');
 }

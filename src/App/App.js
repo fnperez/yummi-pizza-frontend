@@ -5,13 +5,16 @@ import { Alert } from '../_components/alert.component';
 import Routes from '../routes';
 
 class App extends React.Component {
+     componentDidMount = () => {
+        this.props.me();
+    }
+
     render = () => {
         return (
             <div>
                 <Alert />
                  <div>
-                    
-                    
+                    { this.props.currentUser ? this.props.currentUser.email : undefined }
                 </div>
                 <Routes />
             </div>
@@ -20,11 +23,12 @@ class App extends React.Component {
 }
 
 function mapState(state) {
-    const { loggedUser, loggedIn } = state.authentication
-    return { loggedUser, loggedIn };
+    const { currentUser } = state.auth
+    return { currentUser };
 }
 
 const actionCreators = {
+    me: userActions.me,
     logout: userActions.logout
 };
 
