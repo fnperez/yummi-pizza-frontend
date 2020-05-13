@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Container, Menu, Segment, Dropdown, Button, Icon } from 'semantic-ui-react'
 import { AuthMenuItem } from './';
+import { cartActions } from '../_actions/cart.actions';
+import { connect } from 'react-redux';
 
 class MainMenu extends Component {
     render = () => {
-        const currencies = [
-            {key: 'usd', text: 'USD', value: 'usd'},
-            {key: 'eur', text: 'EUR', value: 'eur'}
-        ]
+        const { cartTotalItems, currencies, currency } = this.props;
 
         return (
             <Segment
@@ -33,7 +32,8 @@ class MainMenu extends Component {
                                 selection
                                 fluid
                                 options={currencies}
-                                defaultValue='usd'
+                                defaultValue={currency}
+                                onChange={(e, data) => this.props.switchCurrency(data.value)}
                             />
                         </Menu.Item>
                         
@@ -41,7 +41,7 @@ class MainMenu extends Component {
                             <Button animated='vertical' inverted>
                                 <Button.Content hidden>Shop</Button.Content>
                                 <Button.Content visible>
-                                    <Icon name='shop' /> 23
+                                    <Icon name='shop' /> { cartTotalItems }
                                 </Button.Content>
                             </Button>
                         </Menu.Item>
@@ -54,5 +54,16 @@ class MainMenu extends Component {
         )
     }
 }
+function mapState(state) {
+    const { total, currencies, currency } = state.catalog.cart;
 
-export { MainMenu };
+    return { cartTotalItems: total, currencies, currency };
+}
+
+const actionCreators = {
+    switchCurrency: cartActions.switchCurrency
+};
+
+const connectedMainMenu = connect(mapState, actionCreators)(MainMenu);
+
+export { connectedMainMenu as MainMenu };

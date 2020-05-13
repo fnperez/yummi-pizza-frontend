@@ -11,7 +11,7 @@ class CatalogPage extends Component {
     }
 
     renderProducts = () => {
-        const { items, loading } = this.props.products;
+        const { items, loading } = this.props;
 
         if (loading) {
             return (
@@ -23,9 +23,7 @@ class CatalogPage extends Component {
             return <CardProduct 
                         key={product.id} 
                         product={product} 
-                        currency='usd' 
                         quantity={(Math.random() * 10).toPrecision(1)}
-                        onClick={}
                     />
         });
 
@@ -66,7 +64,9 @@ class CatalogPage extends Component {
 }
 
 function mapState(state) {
-    return state.catalog;
+    const { items, loading } = state.catalog.products;
+
+    return {items, loading } 
 }
 
 const actionCreators = {

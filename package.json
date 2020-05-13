@@ -20,6 +20,7 @@
     "start": "react-scripts start --no-cache",
     "build": "react-scripts build"
   },
+  "config": {},
   "browserslist": {
     "production": [
       ">0.2%",

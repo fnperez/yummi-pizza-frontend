@@ -14,7 +14,7 @@ export class Product {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.image_url = image_url;
+        this.imageUrl = image_url;
         this.createdAt = created_at;
         this.updatedAt = updated_at;
     }
@@ -29,5 +29,9 @@ export class Product {
             props.created_at,
             props.updated_at,
         )
+    }
+
+    getImageUrl(avoidCache = true) {
+        return `${this.imageUrl}?v=${Math.random()}`;
     }
 }
