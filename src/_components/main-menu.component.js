@@ -21,7 +21,7 @@ class MainMenu extends Component {
                     pointing
                     size='large'
                 >
-                <Container>
+                <Container fluid>
                     <Menu.Item header>
                         <img src='/logo512.png' alt='Yummi Pizza'/>
                     </Menu.Item>
@@ -37,8 +37,6 @@ class MainMenu extends Component {
                             />
                         </Menu.Item>
                         
-                        <AuthMenuItem />
-
                         <Menu.Item>
                             <Button animated='vertical' inverted>
                                 <Button.Content hidden>Shop</Button.Content>
@@ -47,6 +45,8 @@ class MainMenu extends Component {
                                 </Button.Content>
                             </Button>
                         </Menu.Item>
+
+                        <AuthMenuItem />
                     </Menu.Menu>
                 </Container>
                 </Menu>

@@ -12,8 +12,6 @@ const getAccessToken = () => {
     const data = localStorage.getItem('accessToken');
     const accessToken = data ? JSON.parse(data) : undefined;
 
-    console.log(data, accessToken);
-
     return accessToken;
 }
 

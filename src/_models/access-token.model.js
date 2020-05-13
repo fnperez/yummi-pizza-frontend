@@ -1,4 +1,4 @@
-export default class AccessToken {
+export class AccessToken {
     constructor(
         type,
         token

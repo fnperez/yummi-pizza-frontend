@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Menu, Dropdown, Button, Icon } from 'semantic-ui-react'
+import { Menu, Dropdown, Button, Loader } from 'semantic-ui-react'
 import { authActions } from "../_actions";
 import { connect } from "react-redux";
 
@@ -9,7 +9,7 @@ class AuthMenuItem extends React.Component {
     renderChild = () => {
         if (this.props.loggingIn) {
             return (
-                <Icon loading name='spinner' />
+                <Loader active inline='centered' />
             );
         }
 

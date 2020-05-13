@@ -4,7 +4,7 @@ import { PrivateRoute } from './_components';
 import { SignUpPage } from './SingUpPage';
 import { LoginPage } from './LoginPage';
 import { Router, Route, Switch, Redirect } from 'react-router-dom';
-import CatalogPage from './CatalogPage/CatalogPage';
+import { CatalogPage } from './CatalogPage/CatalogPage';
 import { PublicRoute } from './_components/public-route.component';
 
 const Routes = () => {

@@ -1,4 +1,4 @@
-import User from './user.model';
-import AccessToken from './access-token.model'
-
-export { AccessToken, User };
+export * from './user.model';
+export * from './access-token.model'
+export * from './price.model'
+export * from './product.model'
