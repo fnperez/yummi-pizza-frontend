@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 
 class MainMenu extends Component {
     render = () => {
-        const { cartTotalItems, currencies, currency } = this.props;
+        const { cartTotalItems, currencies, currency, syncingCart } = this.props;
 
         return (
             <Segment
@@ -38,7 +38,7 @@ class MainMenu extends Component {
                         </Menu.Item>
                         
                         <Menu.Item>
-                            <Button animated='vertical' inverted>
+                            <Button animated='vertical' inverted loading={syncingCart}>
                                 <Button.Content hidden>Shop</Button.Content>
                                 <Button.Content visible>
                                     <Icon name='shop' /> { cartTotalItems }
@@ -55,9 +55,14 @@ class MainMenu extends Component {
     }
 }
 function mapState(state) {
-    const { total, currencies, currency } = state.catalog.cart;
+    const { total, currencies, currency, syncing } = state.catalog.cart;
 
-    return { cartTotalItems: total, currencies, currency };
+    return { 
+        cartTotalItems: total,
+        syncingCart: syncing,
+        currencies, 
+        currency, 
+    };
 }
 
 const actionCreators = {

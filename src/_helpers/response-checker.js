@@ -15,6 +15,7 @@ export function checkResponse(response) {
                 case 422:
                     return Promise.reject({
                         type: 'warning',
+                        status: response.status,
                         title: data.message,
                         description: data.description,
                         errors: data.errors ?? []

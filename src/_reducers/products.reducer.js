@@ -1,4 +1,5 @@
 import { productsConstants } from "../_constants";
+import { idAsKey } from '../_helpers';
 
 const initState = {
     items: [],
@@ -15,14 +16,14 @@ export function products(state = initState, action) {
         case productsConstants.BROWSE_SUCCESS:
             return {
                 loading: false,
-                items: action.items
+                items: idAsKey(action.items)
             }
         case productsConstants.BROWSE_FAILURE:
             state.loading = false;
 
             return {
                 ...state,
-                errors: action.errors
+                error: action.error
             }
         default:
             return state

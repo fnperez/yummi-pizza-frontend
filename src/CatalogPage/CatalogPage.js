@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { MainMenu } from '../_components';
 import { Container, Grid, Segment, Icon, Input, CardGroup, Loader } from 'semantic-ui-react';
-import { productsActions } from "../_actions";
+import { productsActions, cartActions } from "../_actions";
 import { CardProduct } from "../_components/card-product.component";
 import { connect } from "react-redux";
 
@@ -12,19 +12,20 @@ class CatalogPage extends Component {
 
     renderProducts = () => {
         const { items, loading } = this.props;
-
+        
         if (loading) {
             return (
                 <Loader active inline='centered' size='large' />
             );
         }
 
-        const cards = items.map(product => {
-            return <CardProduct 
-                        key={product.id} 
-                        product={product} 
-                        quantity={(Math.random() * 10).toPrecision(1)}
-                    />
+        const cards = Object.values(items).map((product) => {
+            return (
+                <CardProduct 
+                    key={product.id} 
+                    product={product} 
+                />
+            )
         });
 
         return (
@@ -66,11 +67,12 @@ class CatalogPage extends Component {
 function mapState(state) {
     const { items, loading } = state.catalog.products;
 
-    return {items, loading } 
+    return { items, loading } 
 }
 
 const actionCreators = {
     loadProducts: productsActions.browse,
+    addToCart: cartActions.add,
 };
 
 const connectedCatalogPage = connect(mapState, actionCreators)(CatalogPage);

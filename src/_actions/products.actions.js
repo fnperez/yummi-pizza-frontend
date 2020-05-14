@@ -12,7 +12,7 @@ const browse = () => {
 
 	function request() { return { type: productsConstants.BROWSE_REQUEST } }
 	function success(items) { return { type: productsConstants.BROWSE_SUCCESS, items } }
-	function failure(errors) { return { type: productsConstants.BROWSE_FAILURE, errors } }
+	function failure(error) { return { type: productsConstants.BROWSE_FAILURE, error } }
 }
 
 export const productsActions = {

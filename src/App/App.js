@@ -1,15 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { authActions } from '../_actions';
+import { authActions, cartActions } from '../_actions';
 import { Alert } from '../_components/alert.component';
 import Routes from '../routes';
 import { Container } from 'semantic-ui-react';
-import { isLoggedIn } from '../_helpers';
+import { isLoggedIn, hasCartId, getCartId } from '../_helpers';
 
 class App extends React.Component {
      componentDidMount = () => {
-         if (isLoggedIn() && !this.loggedIn) {
+         if (isLoggedIn() && !this.props.loggedIn) {
             this.props.me();
+         };
+
+         if (hasCartId() && !this.props.synced) {
+             this.props.syncCart();
          }
     }
 
@@ -31,7 +35,8 @@ function mapState(state) {
 
 const actionCreators = {
     me: authActions.me,
-    logout: authActions.logout
+    logout: authActions.logout,
+    syncCart: cartActions.sync
 };
 
 const connectedApp = connect(mapState, actionCreators)(App);

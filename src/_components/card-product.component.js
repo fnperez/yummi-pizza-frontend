@@ -1,10 +1,12 @@
 import React from "react";
-import { Card, Button, Label, Image, Icon } from 'semantic-ui-react';
-import { Price } from "./";
+import { Card, Button, Image } from 'semantic-ui-react';
+import { connect } from "react-redux";
+import { Price } from './'; 
+import { cartActions } from "../_actions";
 
-export class CardProduct extends React.Component {
+class CardProduct extends React.Component {
     render = () => {
-        const { product, quantity, onClick, loading=false } = this.props;
+        const { product, quantity, adding, syncing } = this.props;
 
         return (
             <Card raised>
@@ -24,11 +26,33 @@ export class CardProduct extends React.Component {
                         label={quantity}
                         size='large'
                         labelPosition='left'
-                        loading={loading}
-                        onClick={onClick}
+                        loading={adding}
+                        disabled={syncing}
+                        onClick={() => this.props.addToCart(product.id)}
                     />
                 </Card.Content>
             </Card>
         );
     }
 }
+
+function mapState(state, props) {
+    const { addedItems, addingItems, syncing } = state.catalog.cart;
+    
+    const item = addedItems[props.product.id] ?? undefined;
+    
+    return { 
+        quantity: item ? item.quantity : 0,
+        adding: addingItems ? addingItems[props.product.id] : false,
+        syncing,
+        ...props 
+    };
+}
+
+const actionCreators = {
+    addToCart: cartActions.add
+};
+
+const connectedCardProduct = connect(mapState, actionCreators)(CardProduct);
+
+export { connectedCardProduct as CardProduct };
