@@ -1,43 +1,75 @@
 import { cartConstants } from "../_constants/cart.constants";
 import { idAsKey } from '../_helpers';
+import { Price } from "../_models";
 
 const calculateTotal = (items) => {
-    return items.map(item => item.quantity).reduce((prev, curr) => prev + curr);
+    const values = Object.values(items);
+
+    return values.length
+        ? Object.values(items).map(item => item.quantity).reduce((prev, curr) => prev + curr)
+        : 0;
+}
+
+const calculateTotalPrice = (items) => {
+    const values = Object.values(items);
+    const totalPrice = Price.initValue();
+
+    if (! values.length) return totalPrice;
+
+    values.forEach(item => {
+        totalPrice.add(item.totalPrice);
+
+        console.log(totalPrice);
+    });
+
+    return totalPrice;
 }
 
 const addItem = (state, item) => {
     state.addedItems[item.id] = item;
-    state.total++;
-    state.addingItems[item.id] = false;
+    state.total = calculateTotal(state.addedItems);
+    state.totalPrice.add(item.price);
+    delete state.addingItems[item.id];
+
+    return state;
+}
+
+const removeItem = (state, id) => {
+    delete state.addedItems[id];
+    state.total = calculateTotal(state.addedItems);
+    state.totalPrice = calculateTotalPrice(state.addedItems);
 
     return state;
 }
 
 const initState = {
-    addedItems: [],
+    addedItems: {},
     total: 0,
+    totalPrice: Price.initValue(),
     currency: 'usd',
     currencies: window.currencies,
-    addingItems: [],
+    addingItems: {},
 }
 
 export function cart(state = initState, action) {
     switch(action.type) {
-        case cartConstants.SWITCH_CURRENCY: 
+        case cartConstants.SWITCH_CURRENCY: {
             state.currency = action.currency;
 
             return {
                 ...state   
             }; 
-
-        case cartConstants.SYNC_REQUEST:
+        }
+        case cartConstants.SYNC_REQUEST: {
             return {
                 ...state,
                 syncing: true,
             };
-        case cartConstants.SYNC_SUCCESS:
+        }
+        case cartConstants.SYNC_SUCCESS: { 
             state.synced = true;
             state.total = calculateTotal(action.items);
+            state.totalPrice = calculateTotalPrice(action.items);
             state.addedItems = idAsKey(action.items);
             state.syncing = false;
             
@@ -45,27 +77,31 @@ export function cart(state = initState, action) {
                 ...state,
                 synced: true
             }
-        case cartConstants.SYNC_FAILURE:
+        }
+        case cartConstants.SYNC_FAILURE: {
             state.syncing = false;
 
             return {
                 ...state,
             }
-        case cartConstants.ADD_REQUEST:
+        }   
+        case cartConstants.ADD_REQUEST: {
             state.addingItems[action.id] = true;
 
             return {
                 ...state,
                 syncing: true,
             }
-        case cartConstants.ADD_SUCCESS:
+        }
+        case cartConstants.ADD_SUCCESS: {
             let newState = addItem(state, action.item);
             newState.syncing = false;
 
             return {
                 ...newState,
             }
-        case cartConstants.ADD_FAILURE:
+        }
+        case cartConstants.ADD_FAILURE: {
             state.syncing = false;
             state.addingItems[action.id] = false;
 
@@ -73,6 +109,28 @@ export function cart(state = initState, action) {
                 ...state,
                 error: action.error,
             }
+        }
+        case cartConstants.REMOVE_REQUEST: {
+            state.syncing = true;
+
+            return {
+                ...state,
+            };
+        }
+        case cartConstants.REMOVE_SUCCESS: {
+            let newState = removeItem(state, action.id);
+            newState.syncing = false;
+
+            return {
+                ...newState
+            };    
+        }
+        case cartConstants.REMOVE_FAILURE: {
+            return {
+                ...state,
+                error: action.error,
+            };
+        }
         default:
             return state;
     }

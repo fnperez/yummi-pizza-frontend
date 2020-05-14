@@ -33,7 +33,7 @@ class AuthMenuItem extends React.Component {
         );
 
         const signUpButton = (
-            <Button inverted primary style={{ marginLeft: '0.5em' }}>
+            <Button color='yellow' inverted style={{ marginLeft: '0.5em' }}>
                 Sign Up
             </Button>
         )

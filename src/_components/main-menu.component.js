@@ -38,8 +38,10 @@ class MainMenu extends Component {
                         </Menu.Item>
                         
                         <Menu.Item>
-                            <Button animated='vertical' inverted loading={syncingCart}>
-                                <Button.Content hidden>Shop</Button.Content>
+                            <Button animated='vertical' inverted color='yellow' loading={syncingCart}>
+                                <Button.Content hidden>
+                                    <Icon name='credit card' /> Pay
+                                </Button.Content>
                                 <Button.Content visible>
                                     <Icon name='shop' /> { cartTotalItems }
                                 </Button.Content>

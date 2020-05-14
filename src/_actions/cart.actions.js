@@ -48,8 +48,26 @@ const sync = () => {
     function failure(error) { return { type: cartConstants.SYNC_FAILURE, error } }
 }
 
+const remove = (id) => {
+    return dispatch => {
+        dispatch(request(id));
+
+        cartService.remove(id, getCartId())
+            .then(() => dispatch(success(id)))
+            .catch(error => {
+                checkStatus(error)
+                dispatch(failure(error))
+            });
+    }
+
+    function request(id) { return { type: cartConstants.REMOVE_REQUEST, id } }
+    function success() { return { type: cartConstants.REMOVE_SUCCESS, id } }
+    function failure(error) { return { type: cartConstants.REMOVE_FAILURE, error } }
+}
+
 export const cartActions = {
     switchCurrency,
     add,
     sync,
+    remove,
 };

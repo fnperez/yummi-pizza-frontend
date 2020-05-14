@@ -32,7 +32,24 @@ const fetchItems = async (cartId) => {
         })
 }
 
+const remove = async (id, cartId) => {
+    const body = new URLSearchParams();
+
+    body.append('product_id', id);
+    body.append('cart_id', cartId);
+
+    const requestOptions = {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+    };
+
+    return fetch(`${window.api.url}/cart_items`, requestOptions)
+        .then(checkResponse);
+}
+
 export const cartService = {
     add,
-    fetchItems
+    fetchItems,
+    remove
 };
