@@ -28,7 +28,7 @@ class SignUpPage extends React.Component {
         const { registering, error } = this.props;
 
         return (
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
                 <Header as='h2' color='teal' textAlign='center'>
                     <Image src='/logo512.png' /> Create an account
@@ -91,9 +91,6 @@ class SignUpPage extends React.Component {
                         </Button>
                     </Segment>
                 </Form>
-                <Message>
-                    Already with us? <Link to='/login'>Login</Link>
-                </Message>
                 </Grid.Column>
             </Grid>
         );

@@ -22,10 +22,10 @@ class LoginPage extends React.Component {
     }
 
     render = () => {
-        const { loggingIn, error } = this.props;
+        const { loading, error } = this.props;
 
         return (
-            <Grid textAlign='center' style={{ height: '100vh' }} verticalAlign='middle'>
+            <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
                 <Header as='h2' color='teal' textAlign='center'>
                     <Image src='/logo512.png' /> Log-in to your account
@@ -33,8 +33,9 @@ class LoginPage extends React.Component {
 
                 <Form 
                     size='large' 
-                    loading={ loggingIn } 
-                    error={ error !== undefined } 
+                    loading={ loading } 
+                    error={ error !== undefined }
+                    autocomplete={false}
                 >
                     <Message error content={ error && error.description }/>
                     <Segment stacked>
@@ -70,9 +71,6 @@ class LoginPage extends React.Component {
                         </Button>
                     </Segment>
                 </Form>
-                <Message>
-                    New to us? <Link to='/sign-up'>Sign Up</Link>
-                </Message>
                 </Grid.Column>
             </Grid>
         );
@@ -80,8 +78,8 @@ class LoginPage extends React.Component {
 }
 
 function mapState(state) {
-    const { loggingIn, error } = state.auth;
-    return { loggingIn, error };
+    const { loading, error } = state.auth;
+    return { loading, error };
 }
 
 const actionCreators = {

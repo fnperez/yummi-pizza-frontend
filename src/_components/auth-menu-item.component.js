@@ -1,8 +1,10 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Menu, Dropdown, Button, Loader } from 'semantic-ui-react'
+import { Menu, Dropdown, Button, Loader, Popup } from 'semantic-ui-react'
 import { authActions } from "../_actions";
 import { connect } from "react-redux";
+import { LoginPage } from '../LoginPage';
+import { SignUpPage } from '../SingUpPage';
 
 class AuthMenuItem extends React.Component {
 
@@ -24,14 +26,43 @@ class AuthMenuItem extends React.Component {
             )
         }
 
+        const loginButton = (
+            <Button inverted style={{ marginLeft: '0.5em' }}>
+                Log in
+            </Button>
+        );
+
+        const signUpButton = (
+            <Button inverted primary style={{ marginLeft: '0.5em' }}>
+                Sign Up
+            </Button>
+        )
+
         return (
             <div>
-                <Button as={ Link } to='/login' inverted style={{ marginLeft: '0.5em' }}>
-                    Log in
-                </Button>
-                <Button as={ Link } to='/login' inverted primary style={{ marginLeft: '0.5em' }}>
-                    Sign Up
-                </Button>
+                <Popup 
+                    trigger={loginButton} 
+                    on='click'
+                    pinned
+                    position='bottom right'
+                    positionFixed
+                    style={{ minWidth: 450 }}
+                >
+                    <Popup.Content >
+                        <LoginPage />
+                    </Popup.Content>
+                </Popup>
+                <Popup trigger={signUpButton} 
+                    on='click'
+                    pinned
+                    position='bottom right'
+                    positionFixed
+                    style={{ minWidth: 450 }}
+                >
+                    <Popup.Content>
+                        <SignUpPage />
+                    </Popup.Content>
+                </Popup>
             </div>   
         ).props.children;
     }

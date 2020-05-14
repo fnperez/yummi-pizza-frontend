@@ -1,16 +1,14 @@
 import { authConstants } from '../_constants';
 import { authService } from '../_services';
-import { history } from '../_helpers';
 
 const login = (props) => {
     return dispatch => {
-        dispatch(request());
+        dispatch(request())
 
         authService.authenticate(props.email, props.password)
             .then(token => dispatch(setToken(token)))
             .then(authService.me)
             .then(user => dispatch(setUser(user)))
-            .then(() => history.push('/'))
             .catch(error => dispatch(failure(error)));
     };
 
@@ -28,9 +26,9 @@ const me = () => {
             .then(user => {
                 dispatch(setUser(user))
             })
-            .catch(error => dispatch(failure({})));
+            .catch(error => dispatch(failure(error)));
     };
-    function request() { return { type: authConstants.LOGIN_REQUEST } }
+    function request() { return { type: authConstants.ME_REQUEST } }
     function setUser(user) { return { type: authConstants.LOGIN_SET_USER, user } }
     function failure(error) { return { type: authConstants.LOGIN_FAILURE, error } }
 }
@@ -42,7 +40,6 @@ const register = (props) => {
         authService.register(props)
             .then(token => dispatch(setToken(token)))
             .then(authActions.me)
-            .then(() => history.push('/'))
             .catch(error => dispatch(failure(error)));
     };
 

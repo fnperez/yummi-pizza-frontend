@@ -9,5 +9,7 @@ export const authConstants = {
     REGISTER_SUCCESS: 'AUTH_REGISTER_SUCCESS',
     REGISTER_FAILURE: 'AUTH_REGISTER_FAILURE',
     
+    ME_REQUEST: 'AUTH_ME_REQUEST',
+    
     LOGOUT: 'AUTH_LOGOUT',
 };

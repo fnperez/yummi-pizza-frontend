@@ -8,7 +8,7 @@ export function auth(state = initState, action) {
   switch (action.type) {
     case authConstants.LOGIN_REQUEST:
       return {
-        loggingIn: true,
+        loading: true,
       };
     case authConstants.LOGIN_SET_TOKEN:
       return {
@@ -27,6 +27,10 @@ export function auth(state = initState, action) {
       return {
         error: action.error
       };
+    case authConstants.ME_REQUEST:
+      return {
+        loggingIn: true,
+      }
     case authConstants.LOGOUT:
       return {};
     default:
