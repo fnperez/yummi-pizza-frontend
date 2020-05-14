@@ -4,7 +4,7 @@ import { authActions, cartActions } from '../_actions';
 import { Alert } from '../_components/alert.component';
 import Routes from '../routes';
 import { Container } from 'semantic-ui-react';
-import { isLoggedIn, hasCartId, getCartId } from '../_helpers';
+import { isLoggedIn, hasCartId } from '../_helpers';
 
 class App extends React.Component {
      componentDidMount = () => {

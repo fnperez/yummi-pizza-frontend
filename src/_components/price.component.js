@@ -6,8 +6,6 @@ class Price extends React.Component {
     render = () => {
         const { price, currency } = this.props;
 
-        console.log(currency);
-
         return (
             <Label size='big' color='yellow'>
                 <Icon name={ currency } /> { price.getPrice(currency) }

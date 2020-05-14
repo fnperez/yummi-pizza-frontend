@@ -1,11 +1,11 @@
-import { setCartId, checkResponse } from "../_helpers";
+import { checkResponse } from "../_helpers";
 import { Item } from "../_models";
 
 const add = async (id, cartId) => {
     const body = new URLSearchParams();
 
     body.append('product_id', id);
-    body.append('cart_id', cartId);
+    cartId && body.append('cart_id', cartId);
 
     const requestOptions = {
         method: 'POST',

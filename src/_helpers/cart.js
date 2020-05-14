@@ -15,7 +15,9 @@ const dropCartId = () => {
 }
 
 const checkStatus = (error) => {
-    if (error.status === 404 || error.status === 40001) {
+    console.log(error);
+    
+    if (error.status === 40004 || error.status === 40001) {
         dropCartId()
     }
     

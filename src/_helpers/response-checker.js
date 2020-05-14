@@ -15,7 +15,7 @@ export function checkResponse(response) {
                 case 422:
                     return Promise.reject({
                         type: 'warning',
-                        status: response.status,
+                        status: data.status ?? response.status,
                         title: data.message,
                         description: data.description,
                         errors: data.errors ?? []
@@ -24,6 +24,7 @@ export function checkResponse(response) {
                     return Promise.reject({
                         type: 'error',
                         title: "Sorry!",
+                        status: data.status ?? response.status,
                         description: data.error ?? "Something went wrong, try later.",
                         errors: []
                     });

@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { authActions } from '../_actions';
 import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react'
-import { Link } from 'react-router-dom';
 
 class SignUpPage extends React.Component {
     state = {
