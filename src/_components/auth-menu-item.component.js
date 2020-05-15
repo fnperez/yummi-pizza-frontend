@@ -19,7 +19,7 @@ class AuthMenuItem extends React.Component {
             return (
                 <Dropdown text='Account' button className='inverted'>
                     <Dropdown.Menu style={{ borderRadius: 0 }}>
-                        <Dropdown.Item as={ Link } to='/account/settings' content='Settings' />
+                        <Dropdown.Item as={ Link } to='/account/orders' content='Orders' />
                         <Dropdown.Item onClick={ this.props.logout } content='Logout' />
                     </Dropdown.Menu>
                 </Dropdown>

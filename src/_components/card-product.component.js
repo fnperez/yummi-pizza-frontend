@@ -9,7 +9,7 @@ class CardProduct extends React.Component {
         const { product, quantity, adding, syncing } = this.props;
 
         return (
-            <Card raised>
+            <Card>
                 <Image src={product.getImageUrl()} wrapped ui={false} />
                 <Card.Content>
                     <Card.Header textAlign='center' content={ product.name } />
