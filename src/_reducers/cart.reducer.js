@@ -51,7 +51,7 @@ const initState = {
     step: cartConstants.CART_VIEW_STEP,
 }
 
-export function cart(state = initState, action) {
+export function cart(state = Object.create(initState), action) {
     switch(action.type) {
         case cartConstants.NEXT_STEP: {
             state.step = action.step;
@@ -153,7 +153,7 @@ export function cart(state = initState, action) {
             }
         }
         case cartConstants.PAY_SUCCESS: {
-            let newState = initState;
+            let newState = Object.create(initState);
             newState.step = cartConstants.THANKS_STEP;
 
             return {
