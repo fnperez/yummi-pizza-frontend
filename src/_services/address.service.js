@@ -17,7 +17,7 @@ const add = async (props) => {
         body
     };
 
-    return fetch(`${window.api.url}/addresses`, requestOptions)
+    return fetch(`${process.env.API_URL}/addresses`, requestOptions)
         .then(checkResponse)
         .then(response => Address.fromJson(response.data))
 }

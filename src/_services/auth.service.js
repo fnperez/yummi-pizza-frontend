@@ -13,7 +13,7 @@ const authenticate = async (email, password) => {
         body: body
     };
 
-    return fetch(`${window.api.url}/auth/login`, requestOptions)
+    return fetch(`${process.env.API_URL}/auth/login`, requestOptions)
         .then(checkResponse)
         .then(response => {
             const token = AccessToken.fromJson(response.data);
@@ -30,7 +30,7 @@ const me = async () => {
         headers: authHeader(),
     };
 
-    return fetch(`${window.api.url}/auth/me`, requestOptions)
+    return fetch(`${process.env.API_URL}/auth/me`, requestOptions)
         .then(checkResponse)
         .then(response => {
             return User.fromJson(response.data)
@@ -51,7 +51,7 @@ const register = async (props) => {
         body: body
     };
 
-    return fetch(`${window.api.url}/auth/register`, requestOptions)
+    return fetch(`${process.env.API_URL}/auth/register`, requestOptions)
         .then(checkResponse)
         .then(response => {
             const token = AccessToken.fromJson(response.data);
