@@ -41,17 +41,19 @@ const removeItem = (state, id) => {
     return state;
 }
 
-const initState = {
-    addedItems: {},
-    total: 0,
-    totalPrice: Price.initValue(),
-    currency: 'usd',
-    currencies: window.currencies,
-    addingItems: {},
-    step: cartConstants.CART_VIEW_STEP,
+const resetState = () => {
+    return {
+        addedItems: {},
+        total: 0,
+        totalPrice: Price.initValue(),
+        currency: 'usd',
+        currencies: window.currencies,
+        addingItems: {},
+        step: cartConstants.CART_VIEW_STEP,
+    };    
 }
 
-export function cart(state = Object.create(initState), action) {
+export function cart(state = resetState(), action) {
     switch(action.type) {
         case cartConstants.NEXT_STEP: {
             state.step = action.step;
@@ -153,7 +155,7 @@ export function cart(state = Object.create(initState), action) {
             }
         }
         case cartConstants.PAY_SUCCESS: {
-            let newState = Object.create(initState);
+            let newState = resetState();
             newState.step = cartConstants.THANKS_STEP;
 
             return {
