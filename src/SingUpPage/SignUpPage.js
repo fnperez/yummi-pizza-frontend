@@ -29,14 +29,14 @@ class SignUpPage extends React.Component {
         return (
             <Grid textAlign='center' verticalAlign='middle'>
                 <Grid.Column style={{ maxWidth: 450 }}>
-                <Header as='h2' color='teal' textAlign='center'>
+                <Header as='h2' textAlign='center'>
                     <Image src='/logo512.png' /> Create an account
                 </Header>
 
-                <Form size='large' loading={ registering } error={ error !== undefined }>
+                <Form size='large' loading={ registering } error={ error !== undefined } autoComplete={false}>
                     <Message error content={ error && error.description }/>
 
-                    <Segment stacked>
+                    <Segment>
                         <Form.Input 
                             fluid
                             focus
@@ -82,7 +82,7 @@ class SignUpPage extends React.Component {
 
                         <Button 
                             fluid
-                            color='teal' 
+                            color='yellow' 
                             size='large' 
                             onClick={ this.handleSubmit }
                         >

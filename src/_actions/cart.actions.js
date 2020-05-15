@@ -1,6 +1,6 @@
 import { cartConstants } from "../_constants/cart.constants";
 import { cartService } from "../_services";
-import { getCartId, setCartId, checkStatus } from "../_helpers";
+import { getCartId, setCartId, checkStatus, dropCartId } from "../_helpers";
 
 const switchCurrency = (currency = 'usd') => {
     return {
@@ -65,9 +65,28 @@ const remove = (id) => {
     function failure(error) { return { type: cartConstants.REMOVE_FAILURE, error } }
 }
 
+const pay = (id) => {
+    return dispatch => {
+        dispatch(request());
+
+        cartService.createInvoice(id, getCartId())
+            .then(invoice => cartService.pay(invoice.id))
+            .then(() => {
+                dropCartId()
+                dispatch(success())
+            })
+            .catch(error => dispatch(failure(error)));
+    }
+
+    function request() { return { type: cartConstants.PAY_REQUEST } }
+    function success() { return { type: cartConstants.PAY_SUCCESS } }
+    function failure(error) { return { type: cartConstants.PAY_FAILURE, error } }
+}
+
 export const cartActions = {
     switchCurrency,
     add,
     sync,
     remove,
+    pay
 };

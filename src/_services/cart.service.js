@@ -1,5 +1,5 @@
-import { checkResponse } from "../_helpers";
-import { Item } from "../_models";
+import { checkResponse, authHeader } from "../_helpers";
+import { Item, Invoice } from "../_models";
 
 const add = async (id, cartId) => {
     const body = new URLSearchParams();
@@ -48,8 +48,37 @@ const remove = async (id, cartId) => {
         .then(checkResponse);
 }
 
+const createInvoice = async (addressId, cartId) => {
+    const body = new URLSearchParams();
+
+    body.append('address_id', addressId);
+    body.append('cart_id', cartId);
+
+    const requestOptions = {
+        method: 'POST',
+        headers: Object.assign({ 'Content-Type': 'application/x-www-form-urlencoded' }, authHeader()),
+        body
+    };
+
+    return fetch(`${window.api.url}/invoices`, requestOptions)
+        .then(checkResponse)
+        .then(response => Invoice.fromJson(response.data));
+}
+
+const pay = async (invoiceId) => {
+    const requestOptions = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    };
+
+    return fetch(`${window.api.url}/invoices/${invoiceId}/pay`, requestOptions)
+        .then(checkResponse)
+}
+
 export const cartService = {
     add,
     fetchItems,
-    remove
+    remove,
+    createInvoice,
+    pay
 };

@@ -1,0 +1,5 @@
+export const addressConstants = {
+    ADD_REQUEST: 'ADDRESS_ADD_REQUEST',
+    ADD_SUCCESS: 'ADDRESS_ADD_SUCCESS',
+    ADD_FAILURE: 'ADDRESS_ADD_FAILURE',
+}

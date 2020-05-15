@@ -4,11 +4,11 @@ import { connect } from 'react-redux';
 
 class Price extends React.Component {
     render = () => {
-        const { price, currency, normal = false, animated = false } = this.props;
+        const { price, currency, normal = false, animated = false, onClick } = this.props;
 
         if (animated) {
             return (
-                <Button animated='vertical' color='yellow' >
+                <Button animated='vertical' color='yellow' onClick={onClick}>
                     <Button.Content hidden>
                         <Icon name='credit card' /> Pay
                     </Button.Content>

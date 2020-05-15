@@ -36,18 +36,6 @@ class MainMenu extends Component {
                                 onChange={(e, data) => this.props.switchCurrency(data.value)}
                             />
                         </Menu.Item>
-                        
-                        <Menu.Item>
-                            <Button animated='vertical' inverted color='yellow' loading={syncingCart}>
-                                <Button.Content hidden>
-                                    <Icon name='credit card' /> Pay
-                                </Button.Content>
-                                <Button.Content visible>
-                                    <Icon name='shop' /> { cartTotalItems }
-                                </Button.Content>
-                            </Button>
-                        </Menu.Item>
-
                         <AuthMenuItem />
                     </Menu.Menu>
                 </Container>

@@ -12,7 +12,7 @@ export class Price {
     add(oPrice) {
         const currencies = window.currencies;
 
-        currencies.every(currency => {
+        currencies.forEach(currency => {
             this.price[currency.value] += oPrice.getPrice(currency.value);
         })   
     }

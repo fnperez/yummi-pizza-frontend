@@ -1,6 +1,7 @@
 import { cartConstants } from "../_constants/cart.constants";
 import { idAsKey } from '../_helpers';
 import { Price } from "../_models";
+import { addressConstants } from "../_constants";
 
 const calculateTotal = (items) => {
     const values = Object.values(items);
@@ -18,8 +19,6 @@ const calculateTotalPrice = (items) => {
 
     values.forEach(item => {
         totalPrice.add(item.totalPrice);
-
-        console.log(totalPrice);
     });
 
     return totalPrice;
@@ -49,10 +48,26 @@ const initState = {
     currency: 'usd',
     currencies: window.currencies,
     addingItems: {},
+    step: cartConstants.CART_VIEW_STEP,
 }
 
 export function cart(state = initState, action) {
     switch(action.type) {
+        case cartConstants.NEXT_STEP: {
+            state.step = action.step;
+            
+            return {
+                ...state
+            }
+        }
+        case addressConstants.ADD_SUCCESS: {
+            state.step = cartConstants.PAYMENT_STEP;
+            state.totalPrice.add(action.address.deliveryCost);
+            
+            return {
+                ...state
+            }
+        }
         case cartConstants.SWITCH_CURRENCY: {
             state.currency = action.currency;
 
@@ -130,6 +145,26 @@ export function cart(state = initState, action) {
                 ...state,
                 error: action.error,
             };
+        }
+        case cartConstants.PAY_REQUEST: {
+            return {
+                ...state,
+                paying: true
+            }
+        }
+        case cartConstants.PAY_SUCCESS: {
+            let newState = initState;
+            newState.step = cartConstants.THANKS_STEP;
+
+            return {
+                ...newState
+            }
+        }
+        case cartConstants.PAY_FAILURE: {
+            return {
+                ...state,
+                error: action.error
+            }
         }
         default:
             return state;
