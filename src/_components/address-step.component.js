@@ -2,7 +2,6 @@ import React from 'react';
 import { Segment, Header, Icon, Divider, Form, Message, Button } from "semantic-ui-react";
 import { connect } from 'react-redux';
 import { addressActions } from '../_actions';
-import { cartConstants } from '../_constants';
 
 class AddressStep extends React.Component {
     state = {

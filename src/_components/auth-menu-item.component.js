@@ -27,13 +27,13 @@ class AuthMenuItem extends React.Component {
         }
 
         const loginButton = (
-            <Button inverted style={{ marginLeft: '0.5em' }}>
+            <Button inverted>
                 Log in
             </Button>
         );
 
         const signUpButton = (
-            <Button color='yellow' inverted style={{ marginLeft: '0.5em' }}>
+            <Button color='yellow' inverted style={{ marginLeft: 5 }}>
                 Sign Up
             </Button>
         )
@@ -46,7 +46,7 @@ class AuthMenuItem extends React.Component {
                     pinned
                     position='bottom right'
                     positionFixed
-                    style={{ minWidth: 450 }}
+                    style={{ minWidth: 380 }}
                 >
                     <Popup.Content >
                         <LoginPage />
@@ -57,7 +57,7 @@ class AuthMenuItem extends React.Component {
                     pinned
                     position='bottom right'
                     positionFixed
-                    style={{ minWidth: 450 }}
+                    style={{ minWidth: 380 }}
                 >
                     <Popup.Content>
                         <SignUpPage />
@@ -69,7 +69,7 @@ class AuthMenuItem extends React.Component {
 
     render = () => {
         return (
-            <Menu.Item>{ this.renderChild() } </Menu.Item>
+            <Menu.Item style={{ padding: 5 }}>{ this.renderChild() } </Menu.Item>
         );
     }
 }

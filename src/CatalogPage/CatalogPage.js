@@ -32,12 +32,11 @@ class CatalogPage extends Component {
 
     render() {
         const { loading } = this.props;
-
         return (
             <div>
                 <MainMenu />
                 <Ref innerRef={this.contextRef}>
-                    <Container fluid style={{ padding: '1em' }}>
+                    <Container fluid style={{ padding: window.innerWidth <= 450 ? 0 : '1em' }}>
                         <Responsive minWidth={750}>
                             <Grid>
                                 <Grid.Row>

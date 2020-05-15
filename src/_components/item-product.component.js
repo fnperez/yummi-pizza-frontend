@@ -1,12 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { cartActions } from '../_actions';
-import { Item, Button, Icon, Segment } from 'semantic-ui-react';
+import { Item, Button } from 'semantic-ui-react';
 import { Price } from './';
 
 class ItemProduct extends React.Component {
     render = () => {
-        const { item, removing, adding } = this.props;
+        const { item, removing } = this.props;
 
         return (
             <Item>

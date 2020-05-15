@@ -1,8 +1,8 @@
-import React, { createRef } from 'react';
+import React from 'react';
 import { cartConstants } from '../_constants/cart.constants';
 import { AddressStep, CartViewStep, PaymentStep } from './';
 import { connect } from 'react-redux';
-import { Segment, Header, Icon, Button, Sticky } from 'semantic-ui-react';
+import { Segment, Header, Icon, Button } from 'semantic-ui-react';
 
 class CartSteps extends React.Component {
     steps = {

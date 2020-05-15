@@ -5,7 +5,7 @@ import { Item } from 'semantic-ui-react';
 
 class CartItems extends React.Component {
     render = () => {
-        const { addedItems, total } = this.props;
+        const { addedItems } = this.props;
 
         const items = Object.values(addedItems).map(item => {
             return (

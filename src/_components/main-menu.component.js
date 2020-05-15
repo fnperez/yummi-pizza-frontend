@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Menu, Segment, Dropdown, Button, Icon } from 'semantic-ui-react'
+import { Container, Menu, Segment, Dropdown } from 'semantic-ui-react'
 import { AuthMenuItem } from './';
 import { cartActions } from '../_actions/cart.actions';
 import { connect } from 'react-redux';
@@ -12,13 +12,11 @@ class MainMenu extends Component {
             <Segment
                 inverted
                 textAlign='center'
-                style={{ padding: '1em 0em' }}
                 vertical
             >
                 <Menu
                     inverted
                     pointing
-                    size='large'
                 >
                 <Container fluid>
                     <Menu.Item header>
@@ -26,7 +24,7 @@ class MainMenu extends Component {
                     </Menu.Item>
 
                     <Menu.Menu position='right'>
-                        <Menu.Item>
+                        <Menu.Item style={{ padding: 5 }}>
                             <Dropdown
                                 placeholder='Currency'
                                 selection

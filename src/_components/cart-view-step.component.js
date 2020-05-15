@@ -8,7 +8,7 @@ class CartViewStep extends React.Component {
     next = cartConstants.ADDRESS_STEP;
 
     render = () => {
-        const { syncing, total } = this.props;
+        const { syncing } = this.props;
 
         return (
             <Segment loading={syncing}>

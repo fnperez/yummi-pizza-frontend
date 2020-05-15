@@ -28,7 +28,7 @@ class SignUpPage extends React.Component {
 
         return (
             <Grid textAlign='center' verticalAlign='middle'>
-                <Grid.Column style={{ maxWidth: 450 }}>
+                <Grid.Column style={{ maxWidth: 380 }}>
                 <Header as='h2' textAlign='center'>
                     <Image src='/logo512.png' /> Create an account
                 </Header>

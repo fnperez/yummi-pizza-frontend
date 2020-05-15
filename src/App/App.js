@@ -1,9 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { authActions, cartActions } from '../_actions';
-import { Alert } from '../_components/alert.component';
 import Routes from '../routes';
-import { Container } from 'semantic-ui-react';
 import { isLoggedIn, hasCartId } from '../_helpers';
 
 class App extends React.Component {
@@ -19,11 +17,7 @@ class App extends React.Component {
 
     render = () => {
         return (
-            <Container fluid>
-                <Alert />
-
-                <Routes />
-            </Container>
+            <Routes />
         );
     }
 }
