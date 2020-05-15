@@ -16,8 +16,8 @@ const add = async (props) => {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body
     };
-
-    return fetch(`${process.env.API_URL}/addresses`, requestOptions)
+    
+    return fetch(`${window.api.url}/addresses`, requestOptions)
         .then(checkResponse)
         .then(response => Address.fromJson(response.data))
 }

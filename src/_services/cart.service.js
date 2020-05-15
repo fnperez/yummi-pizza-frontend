@@ -13,7 +13,7 @@ const add = async (id, cartId) => {
         body
     };
 
-    return fetch(`${process.env.API_URL}/cart_items`, requestOptions)
+    return fetch(`${window.api.url}/cart_items`, requestOptions)
         .then(checkResponse)
         .then(response => Item.fromJson(response.data))
 }
@@ -23,7 +23,7 @@ const fetchItems = async (cartId) => {
         method: 'GET',
     };
 
-    return fetch(`${process.env.API_URL}/carts/${cartId}`, requestOptions)
+    return fetch(`${window.api.url}/carts/${cartId}`, requestOptions)
         .then(checkResponse)
         .then(response => {
             const cart = response.data;
@@ -44,7 +44,7 @@ const remove = async (id, cartId) => {
         body
     };
 
-    return fetch(`${process.env.API_URL}/cart_items`, requestOptions)
+    return fetch(`${window.api.url}/cart_items`, requestOptions)
         .then(checkResponse);
 }
 
@@ -60,7 +60,7 @@ const createInvoice = async (addressId, cartId) => {
         body
     };
 
-    return fetch(`${process.env.API_URL}/invoices`, requestOptions)
+    return fetch(`${window.api.url}/invoices`, requestOptions)
         .then(checkResponse)
         .then(response => Invoice.fromJson(response.data));
 }
@@ -71,7 +71,7 @@ const pay = async (invoiceId) => {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
     };
 
-    return fetch(`${process.env.API_URL}/invoices/${invoiceId}/pay`, requestOptions)
+    return fetch(`${window.api.url}/invoices/${invoiceId}/pay`, requestOptions)
         .then(checkResponse)
 }
 

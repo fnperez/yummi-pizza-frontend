@@ -7,7 +7,7 @@ const browse = async () => {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     };
 
-    return fetch(`${process.env.API_URL}/products`, requestOptions)
+    return fetch(`${window.api.url}/products`, requestOptions)
         .then(checkResponse)
         .then(response => {
             const productsData = response.data;
