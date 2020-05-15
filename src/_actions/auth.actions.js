@@ -40,6 +40,7 @@ const register = (props) => {
         authService.register(props)
             .then(token => dispatch(setToken(token)))
             .then(authActions.me)
+            .then(user => dispatch(setUser(user)))
             .catch(error => dispatch(failure(error)));
     };
 
